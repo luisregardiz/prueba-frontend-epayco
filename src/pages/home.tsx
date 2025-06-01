@@ -1,31 +1,37 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { ItemList, useAddItem, useItems } from "../modules/items";
+import { ItemList, useItemContext, useItems } from "../modules/items";
+import { ItemForm } from "../modules/items/components/item-form";
 
 export const Home = () => {
     const { data: items, error, isLoading } = useItems();
-    const { register, handleSubmit, reset } = useForm();
-    const mutation = useAddItem();
+    const { items: itemsFromContext } = useItemContext();
 
-    const onSubmit = (data: Item) => {
-        mutation.mutate(data);
-        reset();
-    };
+    const itemsToDisplay =
+        itemsFromContext.length > 0 ? itemsFromContext : items;
 
-    if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {(error as Error).message}</div>;
 
     return (
-        <div>
-            <h1>Add New Item</h1>
-            <form
-                onSubmit={handleSubmit(onSubmit as SubmitHandler<FieldValues>)}
-            >
-                <input {...register("title")} placeholder="Title" required />
-                <textarea {...register("body")} placeholder="Body" required />
-                <button type="submit">Add Item</button>
-            </form>
-            <h2>Items List</h2>
-            <ItemList items={items} />
+        <div className="max-w-screen mx-auto h-screen p-4">
+            <div className="flex lg:flex-row flex-col items-start gap-4 h-full">
+                <section className="w-full h-full bg-neutral-100 flex flex-col rounded-md p-4">
+                    <ItemForm />
+                </section>
+                <section className="w-full lg:w-1/4 h-full lg:pb-10 pb-0">
+                    <h2 className="text-xs font-bold uppercase text-neutral-600 mb-4">
+                        Items List
+                    </h2>
+
+                    {isLoading && (
+                        <div className="flex flex-col items-center mt-4">
+                            <span>Loading...</span>
+                        </div>
+                    )}
+                    {!isLoading && itemsToDisplay && (
+                        <ItemList items={itemsToDisplay} />
+                    )}
+                    {!isLoading && !itemsToDisplay && <div>No items found</div>}
+                </section>
+            </div>
         </div>
     );
 };
