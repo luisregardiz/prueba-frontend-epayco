@@ -17,9 +17,7 @@ export const Home = () => {
                     <ItemForm />
                 </section>
                 <section className="w-full lg:w-1/4 h-full lg:pb-10 pb-0">
-                    <h2 className="text-xs font-bold uppercase text-neutral-600 mb-4">
-                        Items List
-                    </h2>
+                    <h2 className="title-section mb-4">Items List</h2>
 
                     {isLoading && (
                         <div className="flex flex-col items-center mt-4">

@@ -24,13 +24,11 @@ export const ItemForm: FC<ItemFormPros> = () => {
                 className="flex flex-col gap-2"
             >
                 <div className="flex justify-between items-center">
-                    <h1 className="text-xs font-bold uppercase text-neutral-600">
-                        Add New Item
-                    </h1>
+                    <h1 className="title-section">Add New Item</h1>
                     <button
                         type="submit"
                         disabled={!isValid || isSubmitting}
-                        className="bg-neutral-900 text-white text-sm rounded-full py-2 px-4 hover:opacity-80 transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="btn-primary"
                     >
                         + Add Item
                     </button>
