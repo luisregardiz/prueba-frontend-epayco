@@ -8,8 +8,6 @@ export const Home = () => {
     const itemsToDisplay =
         itemsFromContext.length > 0 ? itemsFromContext : items;
 
-    if (error) return <div>Error: {(error as Error).message}</div>;
-
     return (
         <div className="max-w-screen mx-auto h-screen p-4">
             <div className="flex lg:flex-row flex-col items-start gap-4 h-full">
@@ -18,7 +16,7 @@ export const Home = () => {
                 </section>
                 <section className="w-full lg:w-1/4 h-full lg:pb-10 pb-0">
                     <h2 className="title-section mb-4">Items List</h2>
-
+                    {error && <div>Error: {(error as Error).message}</div>}
                     {isLoading && (
                         <div className="flex flex-col items-center mt-4">
                             <span>Loading...</span>
